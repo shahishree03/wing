@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -10,20 +9,34 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"></script>
     <link rel="stylesheet" href="admin_view_list.css">
-    
-  </head>
-  <body>
+    <center>
+        <h1> Search for single data /record</h1>
+        <div class="container">
+            <form action="" method ="POST">
+            <input type ="text"  class="btn" name="emp_id" placeholder="Enter By Id">
+            <input type="submit" name="search" class="btn" value="search by id">
+</form>
 
-<div class="main-div">
-<a class="btn btn-primary" href="admin_search.php" role="button">Search single data</a>
-<br>
-<br>
-<h1>List of employee candidate</h1>
-<div class ="center-div">
 
-<div class="table-responsive">
-<table class="table table-bordered">
-<thead>
+<?php 
+
+$con = mysqli_connect("localhost", "root", "", "attendance");
+
+if(isset($_POST['search']))
+{
+$id=$_POST["emp_id"];
+$query="SELECT * FROM employee_details where emp_id='$id'";
+$query_run=mysqli_query($con,$query);
+$emp_id="";
+$emp_name="";
+$emp_email="";
+$emp_designation="";
+$emp_dateofjoining="";
+$emp_phone="";
+$emp_address="";?>
+
+<table>
+
 <tr>
 <th>Id</th>
 <th>Name</th>
@@ -33,50 +46,38 @@
 <th>phone</th>
 <th>address</th>
 </tr>
-</thead>
-<tbody>
+<br>
+
 <?php
-
-/*if (isset($_GET['emp_designation'])) {
-    $desg = $_GET['emp_designation'];*/
-    $con = mysqli_connect("localhost", "root", "", "attendance");
-if(isset($_POST['searchId'])){
-  $name=$_POST['username'];
-  $name="11abc";
-  $sql= "SELECT * FROM employee_details where emp_id='$name'";
-    $query=mysqli_query($con,$sql);
-    if($query !== false &&mysqli_num_rows($query)>0){
-      while($res=mysqli_fetch_assoc($query)){
-         echo $res['emp_name']; 
-
-   
-
-
-?>
-
+while($row=mysqli_fetch_array($query_run))
+{
+  $emp_id=$row['emp_id'];
+  $emp_name=$row['emp_name'];
+  $emp_email=$row['emp_email'];
+  $emp_designation=$row['emp_designation'];
+  $emp_dateofjoining=$row['emp_dateofjoining'];
+  $emp_phone=$row['emp_phone'];
+  $emp_address=$row['emp_address'];
+    ?>
+    
 <tr>
-<td><?php echo $res['emp_id']?></td>
-<td><?php echo $res['emp_name']?></td>
-<td><?php echo $res['emp_email']?></td>
-<td><?php echo $res['emp_designation']?></td>
-<td><?php echo $res['emp_dateofjoining']?></td>
-<td><?php echo $res['emp_phone']?></td>
-<td><?php echo $res['emp_address']?></td>
+<td><?php echo $emp_id?></td>
+<td><?php echo $emp_name?></td>
+<td><?php echo $emp_email?></td>
+<td><?php echo $emp_designation?></td>
+<td><?php echo $emp_dateofjoining?></td>
+<td><?php echo $emp_phone?></td>
+<td><?php echo $emp_address?></td>
 </tr>
-<?php 
-}
+<?php
 }
 }
 ?>
 
-</tbody>
 </table>
-</div>
-</div>
-</div>
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-   
+        </div>
+    </center>
+  </head>
+  <body>
   </body>
 </html>
