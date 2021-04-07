@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -43,11 +41,11 @@
     $con = mysqli_connect("localhost", "root", "", "attendance");
 
   
-  $sql= "SELECT emp_desgination FROM employee_details where emp_check ='1'";
+  $sql= "SELECT * FROM employee_details where emp_check ='1'";
     $query=mysqli_query($con,$sql);
     $emp_chk="";
     
-      while($res=mysqli_fetch_assoc($query)){
+      while($res=mysqli_fetch_array($query)){
         $emp_chk=$res['emp_designation'];
       }
       $sql_query="SELECT * FROM employee_details where emp_designation ='$emp_chk'";
